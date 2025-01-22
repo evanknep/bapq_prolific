@@ -17,3 +17,4 @@ Thumbs.db
 # Preventing Participant Data Upload #
 ######################
 *.csv
+*.xlsx
