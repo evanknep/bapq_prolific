@@ -7,6 +7,8 @@ output: html_document
 ```{r Script Settings and Resources, include=FALSE, cache=TRUE}
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 library(tidyverse)
+library(dplyr)
+library(ggplot2)
 ```
 
 
@@ -22,5 +24,35 @@ task_data <- task_data %>%
            PercentCorrect, PRewardChance, WinStay, LoseShift, PercentStay, PercentSwitch, PercentReward, PercentChance, AverageRT, AverageRunLength,
            RLCKTOptimizedAlpha, RLCKTOptimizedBeta, RLCKTOptimizedTemp, RLCKTOptimizedChoiceKernel, RLCKTOptimizedValueChoiceWeight, RLCKTModelAgreement,
            EEOptimizedAlpha, EEOptimizedBeta, EEOptimizedRho, EEOptimizedGamma, EEModelAgreement, `p explore`, `updated reward sens`, `exploration potential`, `exploitation potential`))
+
+```
+
+
+```{r Data Visualization}
+
+
+ws_dist <- task_data %>%
+  ggplot(aes(x=WinStay)) +
+  geom_histogram(fill="#69b3a2", color="#e9ecef", alpha=0.6) + 
+  ggtitle("WinStay Distribution") + 
+  theme_classic()
+
+
+
+ws_dist <- task_data %>%
+  ggplot(aes(x=LoseShift)) +
+  geom_histogram(fill="#69b3a2", color="#e9ecef", alpha=0.6) + 
+  ggtitle("LoseShift Distribution") + 
+  theme_classic()
+
+
+pshift_dist <- task_data %>%
+  ggplot(aes(x=PercentSwitch)) +
+  geom_histogram(fill="#69b3a2", color="#e9ecef", alpha=0.6) + 
+  ggtitle("pShift Distribution") + 
+  theme_classic()
+
+
+# ggsave("../output/pshift_dist.svg")
 
 ```
