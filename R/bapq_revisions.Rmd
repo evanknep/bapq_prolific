@@ -3,3 +3,24 @@ title: "bapq_revisions"
 output: html_document
 ---
 
+
+```{r Script Settings and Resources, include=FALSE, cache=TRUE}
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+library(tidyverse)
+```
+
+
+
+```{r Data Import and Cleaning, cache=T, include=FALSE}
+task_data <- read_csv("../data/prolific_task_data.csv")
+qualtrics_data <- read_csv("../data/qualtrics_data.csv")
+
+
+glimpse(task_data)
+task_data <- task_data %>%
+  select(c(SubjectID, Age, Gender, `BAPQ Total`, `BAPQ Ridgid`, `BAPQ Pragmatic`, `BAPQ Aloof`,
+           PercentCorrect, PRewardChance, WinStay, LoseShift, PercentStay, PercentSwitch, PercentReward, PercentChance, AverageRT, AverageRunLength,
+           RLCKTOptimizedAlpha, RLCKTOptimizedBeta, RLCKTOptimizedTemp, RLCKTOptimizedChoiceKernel, RLCKTOptimizedValueChoiceWeight, RLCKTModelAgreement,
+           EEOptimizedAlpha, EEOptimizedBeta, EEOptimizedRho, EEOptimizedGamma, EEModelAgreement, `p explore`, `updated reward sens`, `exploration potential`, `exploitation potential`))
+
+```
