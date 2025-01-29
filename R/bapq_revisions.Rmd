@@ -25,6 +25,9 @@ task_data <- task_data %>%
            RLCKTOptimizedAlpha, RLCKTOptimizedBeta, RLCKTOptimizedTemp, RLCKTOptimizedChoiceKernel, RLCKTOptimizedValueChoiceWeight, RLCKTModelAgreement,
            EEOptimizedAlpha, EEOptimizedBeta, EEOptimizedRho, EEOptimizedGamma, EEModelAgreement, `p explore`, `updated reward sens`, `exploration potential`, `exploitation potential`))
 
+
+ind_data <- read_csv("../data/ind_data_master.csv")
+
 ```
 
 
@@ -55,4 +58,55 @@ pshift_dist <- task_data %>%
 
 # ggsave("../output/pshift_dist.svg")
 
+```
+
+
+```{r choice distributions}
+
+ind_data %>%
+  filter(blockcode != "demo") %>%
+  group_by(participant_num, choice) %>%
+  summarise(
+    total_trials = n()
+  ) %>% 
+  View()
+
+
+choice_dist <- ind_data %>%
+  filter(blockcode != "demo") %>%
+  group_by(participant_num) %>%
+  mutate(
+    total_trials = n(),  # Total number of trials per participant
+    pLeft = sum(choice == 0) / total_trials,
+    pCenter = sum(choice == 1) / total_trials,
+    pRight = sum(choice == 2) / total_trials
+  ) %>%
+  summarise(
+    total_trials = first(total_trials),
+    pLeft = first(pLeft),
+    pCenter = first(pCenter),
+    pRight = first(pRight),
+    .groups = "drop"
+  )
+
+
+
+# Reshape to long format for ggplot
+choice_dist_long <- choice_dist %>%
+  pivot_longer(cols = c(pLeft, pCenter, pRight), 
+               names_to = "choice", 
+               values_to = "proportion") %>%
+  mutate(choice = factor(choice, levels = c("pLeft", "pCenter", "pRight")))
+
+# Create the plot
+ggplot(choice_dist_long, aes(x = proportion, fill = choice)) +
+  geom_density(alpha = 0.4) +
+  labs(title = "Distribution of Choice Proportions Across Participants",
+       x = "Proportion of Choices",
+       y = "Density",
+       fill = "Choice") +
+  geom_vline(xintercept = 0.33, linetype = "longdash") + 
+  theme_classic()
+
+ggsave("../output/choice_dist.svg")
 ```
