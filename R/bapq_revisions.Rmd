@@ -110,3 +110,70 @@ ggplot(choice_dist_long, aes(x = proportion, fill = choice)) +
 
 ggsave("../output/choice_dist.svg")
 ```
+
+
+
+```{r RLCK Correlations}
+
+task_data %>%
+  ggplot(aes(x=`BAPQ Aloof`, y=PercentSwitch)) +
+  # geom_point(alpha = 0.2) +
+  stat_summary_bin(fun.y='mean', bins=6,
+                   color='red', size=2, geom='point') +
+  stat_smooth(method = "lm") +
+  theme_classic()
+
+
+#########################
+
+# Perform Shapiro-Wilk test for normality
+shapiro_results <- task_data %>%
+  summarise(
+    shapiro_aloof_p = shapiro.test(`BAPQ Aloof`)$p.value,
+    shapiro_switch_p = shapiro.test(PercentSwitch)$p.value,
+    rlck_alpha_p = shapiro.test(RLCKTOptimizedAlpha)$p.value
+  )
+
+# Print results
+print(shapiro_results)
+
+
+# Compute Spearman and Pearson correlations with p-values
+spearman_test <- cor.test(task_data$`BAPQ Aloof`, task_data$RLCKTOptimizedBeta, method = "spearman", use = "complete.obs")
+
+# pearson_test <- cor.test(task_data$`BAPQ Aloof`, task_data$PercentSwitch, method = "pearson", use = "complete.obs")
+
+# Extract correlation values and p-values
+spearman_cor <- round(spearman_test$estimate, 2)
+spearman_p <- round(spearman_test$p.value, 3)
+
+# pearson_cor <- round(pearson_test$estimate, 2)
+# pearson_p <- round(pearson_test$p.value, 3)
+
+# Create annotated plot
+task_data %>%
+  ggplot(aes(x = `BAPQ Aloof`, y = RLCKTOptimizedBeta)) +
+  # geom_point(alpha = 0.2) +  # Uncomment if you want individual points
+  stat_summary_bin(fun = 'mean', bins = 6, color = 'red', size = 2, geom = 'point') +
+  stat_smooth(method = "lm") +
+  annotate("text", x = Inf, y = Inf, 
+           label = paste0("Spearman: ", spearman_cor, " (p = ", spearman_p, ")\n"), 
+           hjust = 1.1, vjust = 1.5, size = 5) +
+  ggtitle("BAPQ Aloof x RLCK Beta") + 
+  theme_classic()
+
+ggsave("../output/bapq_pragmatic_rlck_beta.svg")
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
