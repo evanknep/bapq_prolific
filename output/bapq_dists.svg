@@ -24,15 +24,15 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="1.2938725"
-     inkscape:cx="533.66928"
-     inkscape:cy="493.86629"
+     inkscape:zoom="0.914906"
+     inkscape:cx="337.19311"
+     inkscape:cy="343.20466"
      inkscape:window-width="2544"
      inkscape:window-height="1353"
      inkscape:window-x="646"
      inkscape:window-y="145"
      inkscape:window-maximized="0"
-     inkscape:current-layer="g14524"
+     inkscape:current-layer="g3712"
      showguides="true"><sodipodi:guide
        position="73.165531,109.31451"
        orientation="0,-1"
@@ -683,7 +683,7 @@
              x="307.37451"
              y="326.64249">Right</tspan></text></g><g
          id="g11581"
-         transform="matrix(0.53644731,0,0,0.53644731,164.36115,253.30471)"><g
+         transform="matrix(0.68519219,0,0,0.68519219,491.53364,-35.795402)"><g
            clip-path="url(#cpMzguMDN8NDk4LjUyfDIzLjE4fDQ3Mi41MA==)"
            id="g11463" /><g
            id="g12235"
@@ -1030,7 +1030,7 @@
                lengthAdjust="spacingAndGlyphs"
                id="text11509">pShift Distribution</text></g></g></g><g
          id="g11783"
-         transform="matrix(0.69096487,0,0,0.69096487,-684.08666,153.29444)"><g
+         transform="matrix(0.88033087,0,0,0.88033087,-1099.858,84.032955)"><g
            id="g12345"
            transform="matrix(0.50893583,0,0,0.50893583,1280.527,179.38514)"><g
              clip-path="url(#cpMzguMDN8NDk4LjUyfDIzLjE4fDQ3Mi41MA==-8)"
@@ -1339,7 +1339,7 @@
                lengthAdjust="spacingAndGlyphs"
                id="text11711">WinStay Distribution</text></g></g></g><g
          id="g14524"
-         transform="translate(-949.31297,-107.94896)"><g
+         transform="matrix(1.234228,0,0,1.234228,-1362.3526,-230.96043)"><g
            id="g14610"
            transform="matrix(0.39312569,0,0,0.39312569,1337.2236,371.35082)"><rect
              x="58.970001"
