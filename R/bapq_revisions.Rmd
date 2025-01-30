@@ -100,7 +100,7 @@ choice_dist_long <- choice_dist %>%
 
 # Create the plot
 ggplot(choice_dist_long, aes(x = proportion, fill = choice)) +
-  geom_density(alpha = 0.4) +
+  geom_histogram(alpha = 0.4) +
   labs(title = "Distribution of Choice Proportions Across Participants",
        x = "Proportion of Choices",
        y = "Density",
@@ -108,7 +108,7 @@ ggplot(choice_dist_long, aes(x = proportion, fill = choice)) +
   geom_vline(xintercept = 0.33, linetype = "longdash") + 
   theme_classic()
 
-ggsave("../output/choice_dist.svg")
+ggsave("../output/choice_dist_hist.svg")
 ```
 
 
@@ -166,14 +166,32 @@ ggsave("../output/bapq_pragmatic_rlck_beta.svg")
 
 ```
 
+```{r BAPQ Non-Aloof}
+
+
+# Compute Spearman and Pearson correlations with p-values
+spearman_test <- cor.test(task_data$`BAPQ Ridgid`, task_data$PercentSwitch, method = "spearman", use = "complete.obs")
+
+# Extract correlation values and p-values
+spearman_cor <- round(spearman_test$estimate, 2)
+spearman_p <- round(spearman_test$p.value, 3)
+
+
+# Create annotated plot
+task_data %>%
+  ggplot(aes(x = `BAPQ Ridgid`, y = PercentSwitch)) +
+  # geom_point(alpha = 0.2) +  # Uncomment if you want individual points
+  stat_summary_bin(fun = 'mean', bins = 6, color = 'red', size = 2, geom = 'point') +
+  stat_smooth(method = "lm") +
+  annotate("text", x = Inf, y = Inf, 
+           label = paste0("Spearman: ", spearman_cor, " (p = ", spearman_p, ")\n"), 
+           hjust = 1.1, vjust = 1.5, size = 5) +
+  ggtitle("BAPQ Rigid x pShift") + 
+  theme_classic()
 
 
 
+ggsave("../output/bapt_rigid_pshift.svg")
 
 
-
-
-
-
-
-
+```
